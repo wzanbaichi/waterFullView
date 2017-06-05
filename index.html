@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>waterfull view</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            position: relative;
+            margin: 0 auto;
+            width: 1600px;
+        }
+        .item {
+            position: absolute;
+            width: 300px;
+            margin: 10px;
+        }
+        .h2 {
+            height: 200px;
+            background-color: black;
+        }
+        .h3 {
+            height: 300px;
+            background-color: cadetblue;
+        }
+        .h4 {
+            height: 400px;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="item h2"></div>
+    <div class="item h3"></div>
+    <div class="item h4"></div>
+    <div class="item h4"></div>
+    <div class="item h3"></div>
+    <div class="item h2"></div>
+    <div class="item h3"></div>
+    <div class="item h4"></div>
+    <div class="item h3"></div>
+    <div class="item h2"></div>
+    <div class="item h3"></div>
+    <div class="item h2"></div>
+    <div class="item h4"></div>
+</div>
+<script src='jquery-3.2.1.js'></script>
+<script>
+    var boxNum = parseInt($('.content').width()/$('.item').outerWidth(true));
+    var heightArr = [];
+    for(var i=0;i<boxNum;i++){
+      heightArr[i] = 0
+    }
+
+    $('.item').each(function () {
+      var minHeight = Math.min.apply(null,heightArr)
+      var minIndex = heightArr.indexOf(minHeight)
+      $(this).css({
+        top:heightArr[minIndex],
+        left:$(this).outerWidth(true)*minIndex
+      })
+      heightArr[minIndex] += $(this).outerHeight(true)
+    })
+</script>
+</body>
+</html>
