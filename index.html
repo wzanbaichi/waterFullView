@@ -14,12 +14,13 @@
         .content {
             position: relative;
             margin: 0 auto;
-            width: 1600px;
+            max-width: 1600px;
         }
         .item {
             position: absolute;
             width: 300px;
             margin: 10px;
+            transition: all 1s;
         }
         .h2 {
             height: 200px;
@@ -53,21 +54,27 @@
 </div>
 <script src='jquery-3.2.1.js'></script>
 <script>
-    var boxNum = parseInt($('.content').width()/$('.item').outerWidth(true));
-    var heightArr = [];
-    for(var i=0;i<boxNum;i++){
-      heightArr[i] = 0
-    }
 
-    $('.item').each(function () {
-      var minHeight = Math.min.apply(null,heightArr)
-      var minIndex = heightArr.indexOf(minHeight)
-      $(this).css({
-        top:heightArr[minIndex],
-        left:$(this).outerWidth(true)*minIndex
-      })
-      heightArr[minIndex] += $(this).outerHeight(true)
+    waterFull()
+    $(window).resize(function () {
+      waterFull()
     })
+    function waterFull (){
+      var boxNum = parseInt($(window).width()/$('.item').outerWidth(true));
+      var heightArr = [];
+      for(var i=0;i<boxNum;i++){
+        heightArr[i] = 0
+      }
+      $('.item').each(function () {
+        var minHeight = Math.min.apply(null,heightArr)
+        var minIndex = heightArr.indexOf(minHeight)
+        $(this).css({
+          top:heightArr[minIndex],
+          left:$(this).outerWidth(true)*minIndex
+        })
+        heightArr[minIndex] += $(this).outerHeight(true)
+      })
+    }
 </script>
 </body>
 </html>
